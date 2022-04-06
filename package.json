@@ -1,0 +1,64 @@
+{
+  "private": true,
+  "name": "central-saml-logout",
+  "version": "0.1.0",
+  "description": "A dedicated service to perform a SAML 2.0 Single Logout (SLO)",
+  "license": "Apache License, Version 2.0",
+  "homepage": "https://github.com/aservo/central-saml-logout#readme",
+  "bugs": {
+    "url": "https://github.com/aservo/central-saml-logout/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aservo/central-saml-logout.git"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "ncc build ./src/index.js -o ./dist --license licenses.txt",
+    "test": "jest",
+    "scan": "sonar-scanner"
+  },
+  "dependencies": {
+    "kind-of": "^6.0.x",
+    "xml2js": "^0.4.x",
+    "is-xml": "^0.1.x",
+    "dotenv": "^16.0.0",
+    "commander": "^9.1.x",
+    "express": "^4.17.x",
+    "body-parser": "^1.20.x",
+    "cookie-session": "^2.0.x",
+    "passport": "^0.5.x",
+    "passport-saml": "^3.2.x"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.x",
+    "jest": "^27.5.x",
+    "jest-sonar-reporter": "^2.0.x",
+    "sonarqube-scanner": "^2.8.x"
+  },
+  "jest": {
+    "verbose": true,
+    "testMatch": [
+      "**/test/src/**/*.test.js"
+    ],
+    "testTimeout": 60000,
+    "testResultsProcessor": "jest-sonar-reporter",
+    "collectCoverage": true,
+    "coverageDirectory": "./tmp/coverage",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text"
+    ],
+    "collectCoverageFrom": [
+      "**/src/**/*.js",
+      "!**/node_modules/**"
+    ]
+  },
+  "jestSonar": {
+    "reportPath": "./tmp",
+    "reportFile": "test-report.xml",
+    "indent": 4
+  }
+}
