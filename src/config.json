@@ -1,0 +1,85 @@
+{
+  "options": [
+    {
+      "parameter": "-n, --server-hostname <server host>",
+      "description": "set the server hostname",
+      "default": "localhost",
+      "mapping": {
+        "key": "serverHostname",
+        "env": "SERVER_HOSTNAME"
+      }
+    },
+    {
+      "parameter": "-p, --server-port <server port>",
+      "description": "set the server port",
+      "default": "8090",
+      "mapping": {
+        "key": "serverPort",
+        "env": "SERVER_PORT"
+      }
+    },
+    {
+      "parameter": "-b, --base-url <frontend base URL>",
+      "description": "set the frontend base URL",
+      "default": "http://localhost:8090",
+      "mapping": {
+        "key": "baseUrl",
+        "env": "BASE_URL"
+      }
+    },
+    {
+      "parameter": "-m, --idp-metadata <URL or path to IdP metadata>",
+      "description": "load metadata file from HTTP URL or local path",
+      "default": null,
+      "mapping": {
+        "key": "idpMetadata",
+        "env": "IDP_METADATA"
+      }
+    },
+    {
+      "parameter": "-i, --issuer <SAML issuer>",
+      "description": "set the SAML issuer, if unspecified it is the callback URL",
+      "default": null,
+      "mapping": {
+        "key": "issuer",
+        "env": "ISSUER"
+      }
+    },
+    {
+      "parameter": "-c, --cookies-to-clear <cookies definition>",
+      "description": "clear cookies on logout, see documentation",
+      "default": null,
+      "mapping": {
+        "key": "cookiesToClear",
+        "env": "COOKIES_TO_CLEAR"
+      }
+    },
+    {
+      "parameter": "-l, --fallback-logout-url <URL>",
+      "description": "redirect to this URL if no URL is specified in the query string",
+      "default": null,
+      "mapping": {
+        "key": "fallbackLogoutUrl",
+        "env": "FALLBACK_LOGOUT_URL"
+      }
+    },
+    {
+      "parameter": "-s, --login-success-url <URL>",
+      "description": "signal login success by redirection to an URL",
+      "default": null,
+      "mapping": {
+        "key": "loginSuccessUrl",
+        "env": "LOGIN_SUCCESS_URL"
+      }
+    },
+    {
+      "parameter": "-f, --login-failure-url <URL>",
+      "description": "signal login failure by redirection to an URL",
+      "default": null,
+      "mapping": {
+        "key": "loginFailureUrl",
+        "env": "LOGIN_FAILURE_URL"
+      }
+    }
+  ]
+}

@@ -21,6 +21,8 @@ Thumbs.db
 
 hs_err_pid*
 
+.env
+
 ########################
 # Build tool / IDE
 #
