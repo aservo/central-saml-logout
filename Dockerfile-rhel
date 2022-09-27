@@ -1,0 +1,40 @@
+FROM registry.access.redhat.com/ubi8/ubi
+
+MAINTAINER Eric Löffler <eloeffler@aservo.com>
+
+RUN yum makecache && \
+    yum -y update && \
+    yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  && \
+    yum -y install \
+        ca-certificates \
+        curl \
+        jq \
+        nodejs \
+        npm \
+        && \
+    yum clean all && \
+    rm -rf /tmp/* /var/tmp/*
+
+RUN npm cache clean -f && \
+    npm install -g n && \
+    n stable
+
+ADD ca_certs/ /usr/share/pki/ca-trust-source/anchors/
+ADD dist/ /opt/app/dist/
+ADD docker-entrypoint.sh /opt/app/
+ADD docker-start.sh /opt/app/
+
+RUN chmod -R 644 /usr/share/pki/ca-trust-source/anchors/ && \
+    update-ca-trust
+
+RUN groupadd -r -g 1000 appuser && \
+    useradd -r -g 1000 -u 1000 appuser && \
+    chown -R appuser:appuser /opt/app
+
+WORKDIR /opt/app
+
+USER appuser
+
+ENTRYPOINT ["/opt/app/docker-entrypoint.sh"]
+
+CMD ["/opt/app/docker-start.sh"]
