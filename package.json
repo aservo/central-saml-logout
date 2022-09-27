@@ -18,7 +18,7 @@
     "build": "ncc build ./src/index.js -o ./dist --license licenses.txt",
     "test-pre-it": "test/services/it-setup.sh",
     "test-post-it": "test/services/it-shutdown.sh",
-    "test": "jest",
+    "test": "jest --runInBand",
     "scan": "sonar-scanner"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@vercel/ncc": "^0.33.x",
     "jest": "^27.5.x",
+    "jest-puppeteer": "^6.1.x",
     "jest-sonar-reporter": "^2.0.x",
     "sonarqube-scanner": "^2.8.x"
   },
@@ -45,6 +46,7 @@
       "**/test/src/**/*.test.js"
     ],
     "testTimeout": 60000,
+    "preset": "jest-puppeteer",
     "testResultsProcessor": "jest-sonar-reporter",
     "collectCoverage": true,
     "coverageDirectory": "./tmp/coverage",
