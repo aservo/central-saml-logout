@@ -1,0 +1,42 @@
+Listen 8181
+Listen 8183
+ServerName localhost
+
+<VirtualHost *:8181>
+
+    ProxyRequests Off
+
+    ServerName localhost
+
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+
+    ProxyPass /slo http://localhost:8191
+    ProxyPassReverse /slo http://localhost:8191
+
+</VirtualHost>
+
+<VirtualHost *:8183>
+
+    ProxyRequests Off
+    RewriteEngine on
+
+    ServerName localhost
+
+    Header set Access-Control-Allow-Credentials "true"
+    Header set Access-Control-Allow-Headers "Set-Cookie"
+    Header set Access-Control-Allow-Origin "http://localhost:8181"
+
+    RewriteRule ^/test-client/client-prefix/logout/local$ "http://localhost:8181/slo/app-prefix/logout?http://localhost:8183/test-client/client-prefix/status" [R=302,L]
+
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+
+    ProxyPass /test-client http://localhost:8193
+    ProxyPassReverse /test-client http://localhost:8193
+
+</VirtualHost>

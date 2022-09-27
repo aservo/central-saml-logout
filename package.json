@@ -16,6 +16,8 @@
   "scripts": {
     "start": "node .",
     "build": "ncc build ./src/index.js -o ./dist --license licenses.txt",
+    "test-pre-it": "test/services/it-setup.sh",
+    "test-post-it": "test/services/it-shutdown.sh",
     "test": "jest",
     "scan": "sonar-scanner"
   },
