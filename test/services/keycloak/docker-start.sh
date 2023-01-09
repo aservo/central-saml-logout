@@ -6,7 +6,7 @@ docker run \
   --name keycloak-slo-test-container \
   --detach \
   --net=host \
-  --env "HTTP_PORT=8190" \
+  --env "KC_HTTP_PORT=8190" \
   --env "KEYCLOAK_ADMIN=admin" \
   --env "KEYCLOAK_ADMIN_PASSWORD=password" \
   slo-with-keycloak-test:latest

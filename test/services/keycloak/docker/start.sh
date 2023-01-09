@@ -11,6 +11,5 @@ fi
 /opt/keycloak/bin/kc.sh start-dev \
   --auto-build \
   --http-enabled=true \
-  --http-port="$HTTP_PORT" \
   --hostname-strict=false \
   --hostname-strict-https=false
