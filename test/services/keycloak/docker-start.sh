@@ -11,7 +11,7 @@ docker run \
   --env "KEYCLOAK_ADMIN_PASSWORD=password" \
   slo-with-keycloak-test:latest
 
-while ! nc -z localhost 8190; do
+while ! nc -z 127.0.0.1 8190; do
   echo "Waiting 5 seconds for Keycloak to come up."
   sleep 5
 done

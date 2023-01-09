@@ -7,7 +7,7 @@ server {
 
     location ~ ^/slo/ {
         rewrite ^/slo/(.*)$ /$1 break;
-        proxy_pass http://localhost:8192;
+        proxy_pass http://127.0.0.1:8192;
     }
 }
 
@@ -20,14 +20,14 @@ server {
 
     add_header Access-Control-Allow-Credentials true;
     add_header Access-Control-Allow-Headers Set-Cookie;
-    add_header Access-Control-Allow-Origin http://localhost:8182;
+    add_header Access-Control-Allow-Origin http://127.0.0.1:8182;
 
     location ~ ^/test-client/client-prefix/logout/local$ {
-         return 302 http://localhost:8182/slo/app-prefix/logout?http://localhost:8184/test-client/client-prefix/status;
+         return 302 http://127.0.0.1:8182/slo/app-prefix/logout?http://127.0.0.1:8184/test-client/client-prefix/status;
     }
 
 	location ~ ^/test-client/ {
 	    rewrite ^/test-client/(.*)$ /$1 break;
-        proxy_pass http://localhost:8194;
+        proxy_pass http://127.0.0.1:8194;
 	}
 }
