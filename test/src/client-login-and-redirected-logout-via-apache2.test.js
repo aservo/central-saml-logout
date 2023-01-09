@@ -2,7 +2,7 @@ describe('Use case: client login and redirected logout via apache2', () => {
 
     it('should have an inactive session at the beginning', async () => {
 
-        await page.goto('http://localhost:8183/test-client/client-prefix/status');
+        await page.goto('http://127.0.0.1:8183/test-client/client-prefix/status');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Session inactive');
@@ -10,7 +10,7 @@ describe('Use case: client login and redirected logout via apache2', () => {
 
     it('should show the Keycloak login page', async () => {
 
-        await page.goto('http://localhost:8183/test-client/client-prefix/login');
+        await page.goto('http://127.0.0.1:8183/test-client/client-prefix/login');
 
         await expect(page.title()).resolves.toMatch('Sign in to master');
     });
@@ -29,7 +29,7 @@ describe('Use case: client login and redirected logout via apache2', () => {
 
     it('should have an active session', async () => {
 
-        await page.goto('http://localhost:8183/test-client/client-prefix/status');
+        await page.goto('http://127.0.0.1:8183/test-client/client-prefix/status');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Session active');
@@ -37,7 +37,7 @@ describe('Use case: client login and redirected logout via apache2', () => {
 
     it('should redirect the local client logout', async () => {
 
-        await page.goto('http://localhost:8183/test-client/client-prefix/logout/local');
+        await page.goto('http://127.0.0.1:8183/test-client/client-prefix/logout/local');
         await page.waitForNavigation({waitUntil: 'networkidle0'});
 
         const content = await page.$eval('*', x => x.innerText);

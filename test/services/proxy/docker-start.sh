@@ -16,7 +16,7 @@ docker run \
   --env "PROXY=nginx" \
   slo-with-proxy-test:latest
 
-while ! nc -z localhost 8181 || ! nc -z localhost 8182 || ! nc -z localhost 8183 || ! nc -z localhost 8184; do
+while ! nc -z 127.0.0.1 8181 || ! nc -z 127.0.0.1 8182 || ! nc -z 127.0.0.1 8183 || ! nc -z 127.0.0.1 8184; do
   echo "Waiting 5 seconds for the proxy servers to come up."
   sleep 5
 done

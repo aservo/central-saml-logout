@@ -2,7 +2,7 @@ describe('Use case: direct login and logout via nginx', () => {
 
     it('should have an inactive session at the beginning', async () => {
 
-        await page.goto('http://localhost:8182/slo/app-prefix/status');
+        await page.goto('http://127.0.0.1:8182/slo/app-prefix/status');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Session inactive');
@@ -10,7 +10,7 @@ describe('Use case: direct login and logout via nginx', () => {
 
     it('should show the Keycloak login page', async () => {
 
-        await page.goto('http://localhost:8182/slo/app-prefix/login');
+        await page.goto('http://127.0.0.1:8182/slo/app-prefix/login');
 
         await expect(page.title()).resolves.toMatch('Sign in to master');
     });
@@ -29,7 +29,7 @@ describe('Use case: direct login and logout via nginx', () => {
 
     it('should have an active session', async () => {
 
-        await page.goto('http://localhost:8182/slo/app-prefix/status');
+        await page.goto('http://127.0.0.1:8182/slo/app-prefix/status');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Session active');
@@ -37,7 +37,7 @@ describe('Use case: direct login and logout via nginx', () => {
 
     it('should be possible to logout via SLO directly', async () => {
 
-        await page.goto('http://localhost:8182/slo/app-prefix/logout');
+        await page.goto('http://127.0.0.1:8182/slo/app-prefix/logout');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Logout was successful');
@@ -45,7 +45,7 @@ describe('Use case: direct login and logout via nginx', () => {
 
     it('should have an inactive session again', async () => {
 
-        await page.goto('http://localhost:8182/slo/app-prefix/status');
+        await page.goto('http://127.0.0.1:8182/slo/app-prefix/status');
 
         const content = await page.$eval('*', x => x.innerText);
         expect(content).toEqual('Session inactive');

@@ -4,18 +4,18 @@
   "clients": [
     {
       "id": "f64e4da3-d5c1-4ded-bd90-53afca9cc6bf",
-      "clientId": "http://localhost:8181/slo/app-prefix/login/callback",
+      "clientId": "http://127.0.0.1:8181/slo/app-prefix/login/callback",
       "name": "slo app 8181",
       "description": "",
-      "rootUrl": "http://localhost:8181/slo/app-prefix",
-      "adminUrl": "http://localhost:8181/slo/app-prefix/login/callback",
+      "rootUrl": "http://127.0.0.1:8181/slo/app-prefix",
+      "adminUrl": "http://127.0.0.1:8181/slo/app-prefix/login/callback",
       "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8181/slo/app-prefix/*"
+        "http://127.0.0.1:8181/slo/app-prefix/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -61,18 +61,18 @@
     },
     {
       "id": "7bae782f-9563-4dbb-a714-3328ee35245b",
-      "clientId": "http://localhost:8182/slo/app-prefix/login/callback",
+      "clientId": "http://127.0.0.1:8182/slo/app-prefix/login/callback",
       "name": "slo app 8182",
       "description": "",
-      "rootUrl": "http://localhost:8182/slo/app-prefix",
-      "adminUrl": "http://localhost:8182/slo/app-prefix/login/callback",
+      "rootUrl": "http://127.0.0.1:8182/slo/app-prefix",
+      "adminUrl": "http://127.0.0.1:8182/slo/app-prefix/login/callback",
       "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8182/slo/app-prefix/*"
+        "http://127.0.0.1:8182/slo/app-prefix/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -117,18 +117,18 @@
     },
     {
       "id": "cb784ffe-94f6-4dbf-a6a5-36a83296d05e",
-      "clientId": "http://localhost:8183/test-client/client-prefix/login/callback",
+      "clientId": "http://127.0.0.1:8183/test-client/client-prefix/login/callback",
       "name": "test client 8183",
       "description": "",
-      "rootUrl": "http://localhost:8183/test-client/client-prefix",
-      "adminUrl": "http://localhost:8183/test-client/client-prefix/login/callback",
+      "rootUrl": "http://127.0.0.1:8183/test-client/client-prefix",
+      "adminUrl": "http://127.0.0.1:8183/test-client/client-prefix/login/callback",
       "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8183/test-client/client-prefix/*"
+        "http://127.0.0.1:8183/test-client/client-prefix/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -174,18 +174,18 @@
     },
     {
       "id": "b250b858-edfb-4a40-8cb5-ac373753b812",
-      "clientId": "http://localhost:8184/test-client/client-prefix/login/callback",
+      "clientId": "http://127.0.0.1:8184/test-client/client-prefix/login/callback",
       "name": "test client 8184",
       "description": "",
-      "rootUrl": "http://localhost:8184/test-client/client-prefix",
-      "adminUrl": "http://localhost:8184/test-client/client-prefix/login/callback",
+      "rootUrl": "http://127.0.0.1:8184/test-client/client-prefix",
+      "adminUrl": "http://127.0.0.1:8184/test-client/client-prefix/login/callback",
       "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8184/test-client/client-prefix/*"
+        "http://127.0.0.1:8184/test-client/client-prefix/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
