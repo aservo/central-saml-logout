@@ -1,4 +1,5 @@
 const http = require('http');
+const https = require('https');
 const kindOf = require('kind-of');
 const isXml = require('is-xml');
 
@@ -16,6 +17,7 @@ async function httpCall(method, uri, headers, body) {
 
         let bodySerialized;
         let defaultHeaders = {};
+        let agent;
 
         if (kindOf(body) === 'undefined')
             bodySerialized = null;
@@ -44,7 +46,14 @@ async function httpCall(method, uri, headers, body) {
             }
         }
 
-        const request = new http.request(uri, {
+        if (uri.startsWith('http://'))
+            agent = http;
+        else if (uri.startsWith('https://'))
+            agent = https;
+        else
+            throw new Error(`Cannot handle scheme of URI ${uri}`);
+
+        const request = agent.request(uri, {
             method: method,
             headers: {...defaultHeaders, ...(headers || {})}
         }, response => {
