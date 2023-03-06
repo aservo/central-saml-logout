@@ -1,4 +1,3 @@
-const pkg = require('../package.json');
 const utils = require('./lib/utils');
 const passport = require('passport');
 
