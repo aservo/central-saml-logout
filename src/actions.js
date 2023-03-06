@@ -29,6 +29,14 @@ function setup(app, strategy, cookiesToClear) {
         return next();
     };
 
+    const logoutInitSaml = async (request, response, next) => {
+
+        request.session.logoutRedirectUrl = await utils.getFrontChannelLogoutIssuer(request.query['SAMLRequest']);
+        request.session.flow = 'logout';
+
+        return next();
+    };
+
     const login = (request, response, next) => {
 
         const options = {
@@ -97,6 +105,8 @@ function setup(app, strategy, cookiesToClear) {
     app.get(`${prefix}/logout/local`, logoutLocal);
 
     app.post(`${prefix}/logout/local`, logoutLocal);
+
+    app.get(`${prefix}/logout/saml`, logoutInitSaml, ensureAuthenticated, logout);
 
     app.get(`${prefix}/status`, (request, response) => {
 

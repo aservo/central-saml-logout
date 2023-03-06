@@ -2,6 +2,8 @@ const http = require('http');
 const https = require('https');
 const kindOf = require('kind-of');
 const isXml = require('is-xml');
+const xml2js = require('xml2js');
+const zlib = require('zlib');
 
 function getEnvVar(name, defaultValue) {
 
@@ -152,8 +154,21 @@ function isJson(value) {
     return true;
 }
 
+async function getFrontChannelLogoutIssuer(request) {
+
+    const buffer = Buffer.from(request, 'base64');
+    const xmlData = zlib.inflateRawSync(buffer).toString();
+
+    return xml2js.parseStringPromise(xmlData).then((data) => {
+
+        return data['saml2p:LogoutRequest']
+            ['saml2:Issuer'][0]['_'];
+    });
+}
+
 module.exports = {
     getEnvVar,
     httpCall,
     parseCookiesToClear,
+    getFrontChannelLogoutIssuer,
 };
