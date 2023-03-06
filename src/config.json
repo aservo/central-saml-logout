@@ -46,6 +46,15 @@
       }
     },
     {
+      "parameter": "-r, --redirects <redirects definition>",
+      "description": "map a service provider to a redirect URL, see documentation",
+      "default": null,
+      "mapping": {
+        "key": "redirects",
+        "env": "REDIRECTS"
+      }
+    },
+    {
       "parameter": "-c, --cookies-to-clear <cookies definition>",
       "description": "clear cookies on logout, see documentation",
       "default": null,

@@ -14,6 +14,7 @@ const passport = require('passport');
 async function boot() {
 
     const sessionMaxAge = parseInt(utils.getEnvVar('SESSION_MAX_AGE', '86400')); // default is one day
+    const redirects = utils.parseRedirects(utils.getEnvVar('REDIRECTS', '[]'));
     const cookiesToClear = utils.parseCookiesToClear(utils.getEnvVar('COOKIES_TO_CLEAR', '[]'));
 
     const idpMetadata = utils.getEnvVar('IDP_METADATA');
@@ -43,7 +44,7 @@ async function boot() {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    actions.setup(app, strategy, cookiesToClear);
+    actions.setup(app, strategy, redirects, cookiesToClear);
 
     app.listen(utils.getEnvVar('SERVER_PORT'), utils.getEnvVar('SERVER_HOSTNAME'), function () {
         console.log(`Listening at ${utils.getEnvVar('SERVER_HOSTNAME')}:${utils.getEnvVar('SERVER_PORT')}`);
