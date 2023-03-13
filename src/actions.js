@@ -1,8 +1,7 @@
-const pkg = require('../package.json');
 const utils = require('./lib/utils');
 const passport = require('passport');
 
-function setup(app, strategy, cookiesToClear) {
+function setup(app, strategy, redirects, cookiesToClear) {
 
     const base = utils.getEnvVar('BASE_URL');
     const prefix = utils.getEnvVar('PATH_PREFIX', '');
@@ -23,8 +22,16 @@ function setup(app, strategy, cookiesToClear) {
         const queryStringIndex = request.url.indexOf('?');
 
         if (queryStringIndex >= 0 && queryStringIndex < request.url.length - 1)
-            request.session.logoutRedirectUrl = unescape(request.url.slice(queryStringIndex + 1));
+            request.session.clientKey = unescape(request.url.slice(queryStringIndex + 1));
 
+        request.session.flow = 'logout';
+
+        return next();
+    };
+
+    const logoutInitSaml = async (request, response, next) => {
+
+        request.session.clientKey = await utils.getFrontChannelLogoutClientKey(request.query['SAMLRequest']);
         request.session.flow = 'logout';
 
         return next();
@@ -46,7 +53,8 @@ function setup(app, strategy, cookiesToClear) {
             if (error)
                 console.log(`Cannot perform logout\n${error}`);
 
-            const redirectUrl = 'logoutRedirectUrl' in request.session ? request.session.logoutRedirectUrl : null;
+            const clientKey = 'clientKey' in request.session ? request.session.clientKey : null;
+            const redirectEntry = redirects.find((x) => x.clientKey === clientKey);
 
             await utils.httpCall('GET', logoutRequestUrl);
             request.logout();
@@ -54,8 +62,10 @@ function setup(app, strategy, cookiesToClear) {
 
             response.setHeader('Set-Cookie', cookiesToClear);
 
-            if (redirectUrl)
-                response.redirect(redirectUrl);
+            if (redirectEntry)
+                response.redirect(redirectEntry.target);
+            else if (clientKey && utils.validateUrl(clientKey))
+                response.redirect(clientKey);
             else
                 response.redirect(logoutSuccessRedirect);
         });
@@ -98,6 +108,8 @@ function setup(app, strategy, cookiesToClear) {
     app.get(`${prefix}/logout/local`, logoutLocal);
 
     app.post(`${prefix}/logout/local`, logoutLocal);
+
+    app.get(`${prefix}/logout/saml`, logoutInitSaml, ensureAuthenticated, logout);
 
     app.get(`${prefix}/status`, (request, response) => {
 

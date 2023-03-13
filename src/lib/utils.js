@@ -1,7 +1,10 @@
+const url = require('url');
 const http = require('http');
 const https = require('https');
 const kindOf = require('kind-of');
 const isXml = require('is-xml');
+const xml2js = require('xml2js');
+const zlib = require('zlib');
 
 function getEnvVar(name, defaultValue) {
 
@@ -9,6 +12,22 @@ function getEnvVar(name, defaultValue) {
         throw new Error(`Cannot find missing env variable ${name}`);
 
     return name in process.env ? process.env[name] : defaultValue;
+}
+
+function validateUrl(str) {
+
+    if (!str.startsWith('http://') && !str.startsWith('https://'))
+        return false;
+
+    try {
+
+        new url.URL(str);
+        return true;
+
+    } catch (error) {
+
+        return false;
+    }
 }
 
 async function httpCall(method, uri, headers, body) {
@@ -101,6 +120,29 @@ async function httpCall(method, uri, headers, body) {
     });
 }
 
+function parseRedirects(redirectsDef) {
+
+    const node = JSON.parse(redirectsDef);
+
+    if (kindOf(node) !== 'array')
+        throw new Error('Expect array for redirects list');
+
+    return node
+        .map((value) => {
+
+            if (!('clientKey' in value))
+                throw new Error('Expect "clientKey" key in redirect entry');
+
+            if (!('target' in value))
+                throw new Error('Expect "target" key in redirect entry');
+
+            return {
+                'clientKey': value.clientKey,
+                'target': value.target
+            };
+        });
+}
+
 function parseCookiesToClear(cookiesDef) {
 
     const node = JSON.parse(cookiesDef);
@@ -152,8 +194,23 @@ function isJson(value) {
     return true;
 }
 
+async function getFrontChannelLogoutClientKey(request) {
+
+    const buffer = Buffer.from(request, 'base64');
+    const xmlData = zlib.inflateRawSync(buffer).toString();
+
+    return xml2js.parseStringPromise(xmlData).then((data) => {
+
+        return data['saml2p:LogoutRequest']
+            ['saml2:Issuer'][0]['_'];
+    });
+}
+
 module.exports = {
     getEnvVar,
+    validateUrl,
     httpCall,
+    parseRedirects,
     parseCookiesToClear,
+    getFrontChannelLogoutClientKey,
 };
