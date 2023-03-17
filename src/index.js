@@ -13,9 +13,9 @@ const passport = require('passport');
 
 async function boot() {
 
-    const sessionMaxAge = parseInt(utils.getEnvVar('SESSION_MAX_AGE', '86400')); // default is one day
-    const redirects = utils.parseRedirects(utils.getEnvVar('REDIRECTS', '[]'));
-    const cookiesToClear = utils.parseCookiesToClear(utils.getEnvVar('COOKIES_TO_CLEAR', '[]'));
+    const sessionMaxAge = parseInt(utils.getEnvVar('SESSION_MAX_AGE')); // default is one day
+    const redirects = utils.parseRedirects(utils.getEnvVar('REDIRECTS'));
+    const cookiesToClear = utils.parseCookiesToClear(utils.getEnvVar('COOKIES_TO_CLEAR'));
 
     const idpMetadata = utils.getEnvVar('IDP_METADATA');
     const baseUrl = utils.getEnvVar('BASE_URL');
