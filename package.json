@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "central-saml-logout",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A dedicated service to perform a SAML 2.0 Single Logout (SLO)",
   "license": "Apache License, Version 2.0",
   "homepage": "https://github.com/aservo/central-saml-logout#readme",

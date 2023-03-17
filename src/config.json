@@ -19,12 +19,30 @@
       }
     },
     {
+      "parameter": "-a, --session-max-age <max age in seconds>",
+      "description": "set a maximum age for sessions",
+      "default": "86400",
+      "mapping": {
+        "key": "sessionMaxAge",
+        "env": "SESSION_MAX_AGE"
+      }
+    },
+    {
       "parameter": "-b, --base-url <frontend base URL>",
       "description": "set the frontend base URL",
       "default": "http://localhost:8090",
       "mapping": {
         "key": "baseUrl",
         "env": "BASE_URL"
+      }
+    },
+    {
+      "parameter": "-x, --path-prefix <path prefix>",
+      "description": "set a prefix path to all endpoints",
+      "default": null,
+      "mapping": {
+        "key": "pathPrefix",
+        "env": "PATH_PREFIX"
       }
     },
     {
@@ -48,7 +66,7 @@
     {
       "parameter": "-r, --redirects <redirects definition>",
       "description": "map a service provider to a redirect URL, see documentation",
-      "default": null,
+      "default": "[]",
       "mapping": {
         "key": "redirects",
         "env": "REDIRECTS"
@@ -57,7 +75,7 @@
     {
       "parameter": "-c, --cookies-to-clear <cookies definition>",
       "description": "clear cookies on logout, see documentation",
-      "default": null,
+      "default": "[]",
       "mapping": {
         "key": "cookiesToClear",
         "env": "COOKIES_TO_CLEAR"
